@@ -1,24 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import cloud from "./images/cloud.png"
+import Plane from "./plane"
+import useWebAnimations from "@wellyshen/use-web-animations";
+
+
 
 function App() {
+  const { ref, getAnimation } = useWebAnimations({
+    keyframes: { 
+      transform: ["translate(0,0)"],
+      transform: ["translate(-1400px,0)"]
+  
+  },
+    timing: { 
+      duration: 3000,
+      iterations: Infinity
+   }
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="sky" ref={ref}>
+          <img src={cloud} alt="Cloud image"/>
+          <img src={cloud} alt="Cloud image"/>
+      </div>
+
+      <div>
+        <button onClick={()=>{getAnimation().play()}}>start cloud</button>
+        <button onClick={()=>{getAnimation().pause()}}>pause cloud</button>
+      </div>
+
+      <Plane />
     </div>
   );
 }
